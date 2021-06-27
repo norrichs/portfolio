@@ -2,9 +2,13 @@
 	import { quintOut } from "svelte/easing";
 	import { crossfade } from "svelte/transition";
 	import { flip } from "svelte/animate";
-	import ProjectDetailCard from './ProjectDetailCard.svelte'
-	import Fa from 'svelte-fa/src/fa.svelte'
-	import { faFlag } from '@fortawesome/free-solid-svg-icons'
+	import ProjectDetailCard from "./ProjectDetailCard.svelte";
+	import ProjectCardSmall from "./ProjectCardSmall.svelte";
+	import Fa from "svelte-fa/src/fa.svelte";
+	import { faFlag } from "@fortawesome/free-solid-svg-icons";
+	import { data }  from "./data.js";
+	
+	let projects = data;
 
 	const [send, receive] = crossfade({
 		duration: (d) => Math.sqrt(d * 200),
@@ -26,36 +30,6 @@
 
 	let uid = 1;
 
-	let projects = [
-		{
-			id: uid++,
-			selected: false,
-			title: "Spirograph",
-			description: "Canvas-based spirograph toy",
-			image: "../img/canvas_spirograph.png",
-			github: "https://github.com/norrichs/spiro",
-			live: null,
-		},
-		{
-			id: uid++,
-			selected: false,
-			title: "Circles",
-			description: "Random clicker toy",
-			image: null,
-			github: null,
-			live: null
-		},
-		{ id: uid++, selected: true, 
-			title: "What's in the fridge?",
-			description: "Recipe lookup app",
-			image: '',
-			github: null,
-			live: null },
-		{ id: uid++, selected: false, description: "mow the lawn" },
-		{ id: uid++, selected: false, description: "feed the turtle" },
-		{ id: uid++, selected: false, description: "fix some bugs" },
-	];
-
 	function remove(project) {
 		projects = projects.filter((t) => t !== project);
 	}
@@ -68,70 +42,87 @@
 	}
 </script>
 
-<div class="board">
-	<div class="selected">
-		{#each projects.filter((t) => t.selected) as project (project.id)}
-			<div
-				class="card-wrapper selected"
-				in:receive={{ key: project.id , duration: 300}}
-				out:send={{ key: project.id, duration: 300}}
-				animate:flip={{ duration: 400 }}
-			>
-				<!-- {project.description} -->
-				<Fa icon={faFlag}/>
-				<ProjectDetailCard {project}/>
-			</div>
-		{/each}
-	</div>
+<main>
+	<section id="about">
+		<div class="photo" />
+		<div class="title" />
+		<div>
+			<p>
+				Ben is working to be a full stack developer. He comes to the
+				field following time in biochemistry research, neuroscience,
+				carpentry, and Design/Build administration He has a passion for
+				making things easier. Let's automate away the bullshit
+			</p>
+		</div>
+	</section>
+	<section id="projects">
+		<div class="selected">
+			{#each projects.filter((t) => t.selected) as project (project.id)}
+				<div
+					class="card-wrapper selected"
+					in:receive={{ key: project.id, duration: 300 }}
+					out:send={{ key: project.id, duration: 300 }}
+					animate:flip={{ duration: 400 }}
+				>
+					<ProjectDetailCard {project} />
+				</div>
+			{/each}
+		</div>
 
-	<div class="menu">
-		{#each projects.filter((t) => !t.selected) as project (project.id)}
-			<div
-				class="card-wrapper"
-				in:receive={{ key: project.id, duration:300 }}
-				out:send={{ key: project.id, duration: 300 }}
-				animate:flip={{ duration: 400 }}
-				on:click={() => mark(project, true)}
-			>
-				<!-- 				<input type=checkbox on:click={() => mark(project, true)}> -->
-				{project.description}
-			</div>
-		{/each}
-	</div>
-</div>
+		<div class="menu">
+			{#each projects.filter((t) => !t.selected) as project (project.id)}
+				<div
+					class="card-wrapper"
+					in:receive={{ key: project.id, duration: 300 }}
+					out:send={{ key: project.id, duration: 300 }}
+					animate:flip={{ duration: 400 }}
+					on:click={() => mark(project, true)}
+				>
+					<ProjectCardSmall {project} />
+				</div>
+			{/each}
+		</div>
+	</section>
+	<section id="contacts" />
+</main>
 
 <style>
-	.board {
+	main {
+		overflow-y: scroll;
+		scroll-snap-type: y mandatory;
+	}
+	section {
+		height: 100vh;
+	}
+	#about {
+		background-color: moccasin;
+	}
+	#projects {
 		display: flex;
 		flex-direction: column;
-		grid-gap: 1em;
-		max-width: 36em;
-		margin: 0 auto;
+		align-items: center;
+		gap: 30px;
+		scroll-snap-align: end;
 	}
 	.selected {
-		height: 300px;
+		width: 1000px;
+		height: 60vh;
 		padding: 20px;
 	}
 	.menu {
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
+		gap: 10px;
 	}
 	div.card-wrapper {
 		position: relative;
-		line-height: 1.2;
-		padding: 0.5em 2.5em 0.5em 2em;
-		margin: 0 0 0.5em 0;
-		border-radius: 2px;
-		user-select: none;
-		border: 1px solid hsl(240, 8%, 70%);
-		background-color: hsl(240, 8%, 93%);
-		color: #333;
 	}
 
 	div.card-wrapper.selected {
-		border: 1px solid hsl(240, 8%, 90%);
-		background-color: lightsalmon;
+		/* border: 1px solid magenta; */
 		height: 100%;
+		padding: 0;
+		margin: 0;
 	}
 </style>
