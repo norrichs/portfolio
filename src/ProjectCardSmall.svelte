@@ -1,60 +1,66 @@
 <script>
+	import { slide } from 'svelte/transition';
 	export let project;
 	export let imagePath;
-	let hidden = false;
+	let shadeUp = true;
 </script>
 
 <div
 	class="card-wrapper-small"
-	on:mouseover={() => {
-		hidden = true;
-	}}
-	on:mouseleave={() => {
-		hidden = false;
-	}}
+	on:mouseover={() => {shadeUp = false;}}
+	on:mouseleave={() => {shadeUp = true;}} 
 >
-	<div class:hidden class="front">
+	<div class="thumb">
 		<img
 			alt={project.description_short}
 			src={`${imagePath}${project.thumb}`}
 		/>
 	</div>
-	<div class:hidden={!hidden} class="back">
-		<h2>
-			{project.title}
-		</h2>
-		<p>
-			{project.description_short}
-		</p>
-	</div>
+	{#if !shadeUp}
+		<div 
+			class:shadeUp 
+			class="shade"
+			transition:slide
+		>
+			<h2>
+				{project.title}
+			</h2>
+			<p>
+				{project.description_short}
+			</p>
+		</div>
+	{/if}
 </div>
 
 <style>
-	li {
-		list-style-type: none;
-	}
 	.card-wrapper-small {
 		border-radius: 5px;
+		position: relative;
 	}
-	.front {
+	.thumb {
 		width: 150px;
 		height: 150px;
 		/* border: 1px solid black; */
 		border-radius: 5px;
 	}
-	.back {
-		width: 150px;
-		height: 150px;
-		border-radius: 5px;
-		background-color: red;
-	}
-	.front img {
+	.thumb img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 		border-radius: 5px;
 	}
-	.hidden {
-		display: none;
+	.shade {
+		width: 150px;
+		height: 150px;
+		border-radius: 5px;
+		background-color: rgba(0,0,0,0.75);
+		position: absolute;
+		top: 0;
+		overflow: hidden;
+		color: var(--scarlet)
+	}
+	.shadeUp {
+		height: 0px;
+		overflow: hidden;
 	}
 </style>

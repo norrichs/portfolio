@@ -49,7 +49,7 @@
 <main>
 	<header>
 		<h1>Ben Norrichs</h1>
-		<h2></h2>
+		<h2>full - stack - developer</h2>
 	</header>
 	<section id="about">
 		<div class="title">
@@ -88,10 +88,9 @@
 
 			</ul>
 		</div>
-
-
 	</section>
 	<section id="projects">
+		<div class="title"><h2>Projects</h2></div>
 		<div class="selected">
 			{#each projects.filter((t) => t.selected) as project (project.id)}
 				<div
@@ -104,7 +103,6 @@
 				</div>
 			{/each}
 		</div>
-
 		<div class="menu">
 			{#each projects.filter((t) => !t.selected) as project (project.id)}
 				<div
@@ -138,7 +136,7 @@
 				hidden = false;
 			}}
 		>
-			Contact Me ^
+			<h2>Contact Me ^</h2>
 		</div>
 		<ul>
 			<li>
@@ -175,16 +173,16 @@
 		--site-background: var(--rich-black-fogra-29);
 		--box-color: var(--pewter-blue);
 		--highlighted-text: var(--scarlet);
+		--general-text: var(--grullo);
 
 		--footer-height: 75px;
 	}
-
 
 	li {
 		list-style-type: none;
 	}
 	main {
-
+		color: var(--general-text);
 		scroll-snap-type: y mandatory;
 		background-color: var(--site-background);
 	}
@@ -195,11 +193,12 @@
 		font-size: 2em;
 	}
 	header{
-		height: 50px;
+		padding: 10px 10px 30px 10px;
 	}
 	#about {
 		height: calc( 100vh - 50px );
 		display: grid;
+		gap: 20px;
 		grid-template-rows: 1fr 1fr;
 		grid-template-columns: 3em 1fr 1fr;
 		grid-template-areas:
@@ -207,11 +206,12 @@
 			' t l l ';
 	}
 
-	#about>.title{
+	.title{
 		grid-area: t;
+		color: var(--highlighted-text);
+		border-right: 3px solid;
 	}
-	#about > .title > h2{
-		border: 1px solid green;
+	.title > h2{
 		text-orientation: sideways;
 		writing-mode: vertical-rl;
 		position: -webkit-sticky;
@@ -232,9 +232,9 @@
 		font-size: 1.75em;
 		margin-bottom: 2em;
 	}
-	#about div{
+	/* #about div{
 		border: 1px solid;
-	}
+	} */
 	#about .stack{grid-area: l}
 	#about .stack ul{
 		display: flex;
@@ -249,24 +249,32 @@
 	}
 
 	/* Projects section */
-	#projects {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 30px;
-		height: calc( 100vh - 100px );
-		scroll-snap-align: end;
+	#projects{
+		display: grid;
+		gap: 20px;
+		/* height: calc( 100vh - 100px ); */
+		grid-template-rows: 60vh 1fr;
+		grid-template-columns: 3em 1fr 1fr;
+		grid-template-areas:
+			' pt ps ps '
+			' pt pm pm ';
 	}
-	/* #contact{
+	#projects .title{
+		grid-area: pt;
+		color: var(--highlighted-text);
+		border-right: 3px solid;
 
-	} */
-	.selected {
+	}
+	#projects .selected {
+		grid-area: ps;
 		width: 1000px;
 		max-width: 95vw;
 		height: 60vh;
 		padding: 20px;
+		margin: 0 auto;
 	}
-	.menu {
+	#projects .menu {
+		grid-area: pm;
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
@@ -285,7 +293,7 @@
 	}
 	/* Contact section */
 	#contact {
-		width: 100vw;
+		width: 100%;
 		background-color: var(--box-color);
 		height: var(--footer-height);
 		display: flex;
@@ -294,6 +302,7 @@
 		padding: 10px;
 		position: relative;
 		color: var(--highlighted-text);
+		box-shadow: 0 0 50px 10px black;
 	}
 	#contact > ul {
 		display: flex;
@@ -307,6 +316,7 @@
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		grid-template-rows: 1fr 1fr 4fr 1fr;
+		box-shadow: 0 0 50px 10px black;
 	}
 	#contact > form input {
 		background-color: powderblue;
