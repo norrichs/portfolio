@@ -1,6 +1,6 @@
 <script>
 	import { quintOut } from "svelte/easing";
-	import { crossfade } from "svelte/transition";
+	import { crossfade, slide } from "svelte/transition";
 	import { flip } from "svelte/animate";
 	import ProjectDetailCard from "./ProjectDetailCard.svelte";
 	import ProjectCardSmall from "./ProjectCardSmall.svelte";
@@ -8,6 +8,7 @@
 	import { faFlag } from "@fortawesome/free-solid-svg-icons";
 	import { data } from "./data.js";
 	import "ress/dist/ress.min.css";
+
 
 	const imagePath = "../img/";
 
@@ -36,6 +37,55 @@
 	function remove(project) {
 		projects = projects.filter((t) => t !== project);
 	}
+
+	async function postContactMessage(event){
+		event.preventDefault()
+		hidden = true;
+		const formValues = {
+			name: event.target[0].value,
+			email: event.target[1].value,
+			message: event.target[2].value
+		}
+		console.log('formValues', formValues)
+		fetch("https://982ayljk77.execute-api.us-east-2.amazonaws.com/dev/portfolioSend",{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(formValues)
+		}).then((resp) => {
+			console.log('fetch response', resp)
+		})
+
+	}
+
+
+	const handleCreate = (newSong) => {
+		console.log("handleCreate new song", newSong);
+		fetch(url + "/songs/", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(newSong),
+		}).then(() => {
+			getSongs();
+		});
+	};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	function mark(project, selected) {
 		projects[projects.findIndex((t) => t.selected)].selected = false;
@@ -70,7 +120,7 @@
 				A drive to develop and use tech as tool for growing efficiency and understanding, while limiiting tedium.<br>
 				As a developer, I bring a strong drive to innnovate and transoform how we get things done.
 			</aside>
-			<h2>Tech Stack</h2>
+			<h2>Tech Stack</h2><br>
 			<ul>
 				<li>Javascript / HTML / CSS </li>
 				<li>NodeJS</li>
@@ -119,17 +169,17 @@
 	</section>
 
 	<footer id="contact">
-		<form class:hidden>
-			<div><div class="close" on:click={()=>{hidden=true}}>X</div></div>
-			<input type="text" placeholder="your name" />
-			<input type="email" placeholder="your email" />
-			<input type="textarea" placeholder="your message" />
-			<button type="submit">Let's talk!</button>
-		</form>
+		{#if !hidden}
+			<form class:hidden on:submit={(event)=>postContactMessage(event)} transition:slide>
+				<div><div class="close" on:click={()=>{hidden=true}}>X</div></div>
+				<input type="text" placeholder="your name" name="name"/>
+				<input type="email" placeholder="your email" name="email"/>
+				<input type="textarea" placeholder="your message" name="message" wrap="soft"/>
+				<button type="submit">Let's talk!</button>
+			</form>
+		{/if}
 		<div>
-			Making it work in<br />
-			Amherst, MA<br />
-			<a href="mailto:ben.norrichs@gmail.com">ben.norrichs@gmail.com</a>
+			Making it work in Amherst, MA
 		</div>
 		<div
 			on:mouseover={() => {
@@ -175,7 +225,17 @@
 		--highlighted-text: var(--scarlet);
 		--general-text: var(--grullo);
 
+		/* --form-background: var(--grullo); */
+		--form-background: hsla(31, 12%, 63%, .9);
+		--form-inputs: var(--rich-black-fogra-29);
+		--form-buttons: var(--scarlet);
+		--form-button-text: var(--rich-black-fogra-29);
+
+
 		--footer-height: 75px;
+
+
+
 	}
 
 	li {
@@ -311,15 +371,17 @@
 	}
 	#contact > form {
 		position: absolute;
-		background-color: rosybrown;
+		background-color: var(--form-background);
 		bottom: 100px;
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		grid-template-rows: 1fr 1fr 4fr 1fr;
 		box-shadow: 0 0 50px 10px black;
+		padding: 5px;
 	}
 	#contact > form input {
-		background-color: powderblue;
+		background-color: var(--form-inputs);
+		color: var(--highlighted-text);
 	}
 	#contact > form input:nth-of-type(1) {
 		grid-row: 2 / 3;
@@ -329,9 +391,10 @@
 		grid-row: 2 / 3;
 		grid-column: 2 / 3;
 	}
-	#contact > form input:nth-of-type(3) {
+	#contact > form input[type=textarea] {
 		grid-row: 3 / 4;
 		grid-column: 1 / 3;
+
 	}
 
 	#contact > form div{
@@ -339,6 +402,7 @@
 		grid-column: 1 / 3;
 		display: flex;
 		justify-content: flex-end;
+
 	}
 	#contact .close{
 		display: flex;
@@ -348,10 +412,15 @@
 		width: 2em;
 		background-color: black;
 		color: white;
+		background-color: var(--form-buttons);
+		color: var(--form-button-text);
 	}
-	#contact > form button:nth-of-type(2) {
+	#contact > form > button{
 		grid-row: 4 / 5;
 		grid-column: 1 / 3;
+		width: 100%;
+		background-color: var(--form-buttons);
+		color: var(--form-button-text);
 	}
 	#contact > form.hidden {
 		display: none;

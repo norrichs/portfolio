@@ -57,7 +57,12 @@
 		position: absolute;
 		top: 0;
 		overflow: hidden;
-		color: var(--scarlet)
+		color: var(--highlighted-text);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
 	}
 	.shadeUp {
 		height: 0px;

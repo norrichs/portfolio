@@ -5,7 +5,7 @@ export const data = [
 		id: uid++,
 		selected: true,
 		title: "Spirograph",
-		description_short: "Canvas-based spirograph toy",
+		description_short: "HTML-canvas based spirograph simulator",
 		description: "Older project, originally coded in 2011.  An experiment in using HTML Canvas to simulate the classic pen and gear toy 'spirograph'",
 		stack: 'HTML, CSS, JS',
 		image: "spiro.jpg",
@@ -14,7 +14,7 @@ export const data = [
 			{source: "https://github.com/norrichs/spiro"},
 			{live: null}
 		],
-		overlay: 'light'
+		overlay: 'dark'
 	},
 	// {
 	// 	id: uid++,
