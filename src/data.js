@@ -3,7 +3,7 @@ let uid = 0;
 export const data = [
 	{
 		id: uid++,
-		selected: true,
+		selected: false,
 		title: "Spirograph",
 		description_short: "HTML-canvas based spirograph simulator",
 		description: "Older project, originally coded in 2011.  An experiment in using HTML Canvas to simulate the classic pen and gear toy 'spirograph'",
@@ -74,7 +74,7 @@ export const data = [
 		links: [
 			{ scraper: "https://github.com/norrichs/b-c-scraper" },
 			{ frontend: "https://github.com/norrichs/CB-Clone-Project-FE" },
-			{ live: "https://main.dvoayhklgwdgg.amplifyapp.com/" }
+			{ live: "https://hmclone.norrichs.com/" }
 		],
 		planning: "https://www.notion.so/Intro-88a3319a14d143a6a072af5261566cc6",
 		overlay: 'dark'
@@ -85,7 +85,7 @@ export const data = [
 		title: 'Books app',
 		description_short: 'Simple CRUD app used as coding practice',
 		description: 'Simple database app for recording book information from your personal library.',
-		stack: "MongoDB, Express, React, Node, Bulma",
+		stack: "MongoDB, ExpressJS, React, Node, Bulma",
 		image: "book-app.png",
 		thumb: "th_book-app.png",
 		links: [
@@ -105,9 +105,8 @@ export const data = [
 		image: "budget_template.png",
 		thumb: "th_budget_template.png",
 		links: [
-			{ backend: ""},
-			{ frontend: ""},
-			{ live: "" }
+			{ backend: "https://docs.google.com/spreadsheets/d/1Pfnu6qpZ0ladn8AfzZSdHjAw6Q1-oyikTZqayDzRQs0/edit#gid=193240821"},
+			{ frontend: "https://docs.google.com/spreadsheets/d/1Pfnu6qpZ0ladn8AfzZSdHjAw6Q1-oyikTZqayDzRQs0/edit#gid=20662811"}
 		],
 		overlay: 'dark'
 	},
@@ -153,6 +152,23 @@ export const data = [
 		thumb: "th_cd.png",
 		links: [
 		
+		],
+		overlay: 'dark'
+	},
+	{
+		id: uid++,
+		selected: true,
+		title: 'Hearts Game',
+		description_short: 'Clone of the Hearts card game in Svelte',
+		description: 'This project was built as part of a Hackathon.  It is a multi-player hearts game with a basic computer player AI feature, built using the SveltJS framework.\nFun fact: the cards are custom built with HTML/CSS',
+		stack: "MongoDB, ExpressJS, Node, SvelteJS",
+		image: "hearts.png",
+		thumb: "th_hearts.png",
+		links: [
+			{"backend GitHub": "https://github.com/norrichs/hearts-game"},
+			{"frontend GitHub": "https://github.com/norrichs/hearts-svelte-frontend"},
+			{"Live": "https://hearts.norrichs.com"},
+			{"more info on how this was built": "https://norrichs.com"}
 		],
 		overlay: 'dark'
 	}
