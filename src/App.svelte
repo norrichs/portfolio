@@ -9,7 +9,6 @@
 	import { data } from "./data.js";
 	import "ress/dist/ress.min.css";
 
-
 	const imagePath = "../img/";
 
 	let projects = data;
@@ -38,54 +37,28 @@
 		projects = projects.filter((t) => t !== project);
 	}
 
-	async function postContactMessage(event){
-		event.preventDefault()
+	async function postContactMessage(event) {
+		event.preventDefault();
 		hidden = true;
 		const formValues = {
 			name: event.target[0].value,
 			email: event.target[1].value,
-			message: event.target[2].value
-		}
-		console.log('formValues', formValues)
-		fetch("https://982ayljk77.execute-api.us-east-2.amazonaws.com/dev/portfolioSend",{
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(formValues)
-		}).then((resp) => {
-			console.log('fetch response', resp)
-		})
-
-	}
-
-
-	const handleCreate = (newSong) => {
-		console.log("handleCreate new song", newSong);
-		fetch(url + "/songs/", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(newSong),
-		}).then(() => {
-			getSongs();
+			message: event.target[2].value,
+		};
+		console.log("formValues", formValues);
+		fetch(
+			"https://982ayljk77.execute-api.us-east-2.amazonaws.com/dev/portfolioSend",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(formValues),
+			}
+		).then((resp) => {
+			console.log("fetch response", resp);
 		});
-	};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	}
 
 	function mark(project, selected) {
 		projects[projects.findIndex((t) => t.selected)].selected = false;
@@ -102,27 +75,75 @@
 		<h2>full - stack - developer</h2>
 	</header>
 	<section id="about">
-		<div class="title">
-			<h2>About</h2>
+		<div class="title"><h2>About</h2></div>
+		<div class="photo">
+			<img src={`${imagePath}ben_brownshirt800.jpg`} alt="ben" />
 		</div>
-		<div class="photo"><img src={`${imagePath}ben_brownshirt800.jpg`} alt="ben"/></div>
-		<div class="copy">
-			<aside>	Full-stack developer with experience across a wide variety of knowledge domains, I bring agile and deep problem-solving focus. 
-				I will quickly understand your team's goals and help you achieve them in any working environment. <span>Let’s build something awesome.</span></aside>
-			<br>
-		</div>
-		<div class="stack">
-			<aside>
-				I completed the General Assembly bootcamp in 2021 as the fulcrum of a career shift. 
-				After earning a BS in Biochemistry and molecular biology, working in research and going to graduate school for Neuroscience,
-				I left academia to build homes.<br>
-				After 5 years in the field and another 5 in the office, it became clear to me that there was a common thread running through my career - 
-				A drive to develop and use tech as tool for growing efficiency and understanding, while limiiting tedium.<br>
-				As a developer, I bring a strong drive to innnovate and transoform how we get things done.
-			</aside>
-			<h2>Tech Stack</h2><br>
+
+		<aside class="copy">
+			<p>
+				Full-stack developer with experience across a wide variety of
+				knowledge domains, I bring agile and deep problem-solving focus.
+				I will quickly understand your team's goals and help you achieve
+				them in any working environment.
+			</p>
+			<p><u>Let’s build something awesome.</u></p>
+			<br />
+		</aside>
+		<aside class="copy">
+			<p>
+				I completed the <a href="https://www.generalassemb.ly/"
+					>General Assembly</a
+				> Software Engineering Intensive bootcamp in 2021 as the fulcrum
+				of a career shift at this stage in my curious career progression.
+			</p>
 			<ul>
-				<li>Javascript / HTML / CSS </li>
+				<li>
+					Earned a BS in Biochemistry and Molecular Biology from UC
+					Santa Cruz in 2002
+				</li>
+				<li>
+					Did research work at UC Berkeley (AIDS, Nutrition, Cancer -
+					stable isotope labeling studies)
+				</li>
+				<li>
+					Grad school at Brandeis University for Neuroscience
+					(cellular bases of fruit-fly olfaction and mating behavior),
+					earning a Masters degree.
+				</li>
+				<li>
+					Left academia to start a family and work with my hands.
+					Built houses, restored old barns, deep energy retrofits.
+					Spent 5 years in the field.
+				</li>
+				<li>
+					Moved into the office as a project manager, focusing on
+					highly energy efficient residences. Both new homes and
+					restorations / retrofits. Developed business systems for my
+					company, including timesheet, budgeting and analysis systems
+					in Google Sheets / Google App Scripts. Managed large
+					projects. Designed and drafted project construction
+					documents.
+				</li>
+				<li>
+					It became clear to me that there was a common thread running
+					through my career - A drive to develop and use tech as tool
+					for growing efficiency and understanding, while limiiting
+					tedium.
+				</li>
+				<li>
+					Today, I am excited to work in technology as my main focus,
+					with the best modern tools and practices.
+				</li>
+			</ul>
+			As a developer, I bring a strong drive to innnovate and transform how
+			we get things done.
+		</aside>
+
+		<div class="stack-title title"><h2>Stack</h2></div>
+		<div class="stack">
+			<ul>
+				<li>Javascript / HTML / CSS</li>
 				<li>NodeJS</li>
 				<li>MongoDB</li>
 				<li>PostgreSQL</li>
@@ -135,7 +156,6 @@
 				<li>Sass</li>
 				<li>Bootstrap</li>
 				<li>Milligram</li>
-
 			</ul>
 		</div>
 	</section>
@@ -170,17 +190,33 @@
 
 	<footer id="contact">
 		{#if !hidden}
-			<form class:hidden on:submit={(event)=>postContactMessage(event)} transition:slide>
-				<div><div class="close" on:click={()=>{hidden=true}}>X</div></div>
-				<input type="text" placeholder="your name" name="name"/>
-				<input type="email" placeholder="your email" name="email"/>
-				<input type="textarea" placeholder="your message" name="message" wrap="soft"/>
+			<form
+				class:hidden
+				on:submit={(event) => postContactMessage(event)}
+				transition:slide
+			>
+				<div>
+					<div
+						class="close"
+						on:click={() => {
+							hidden = true;
+						}}
+					>
+						X
+					</div>
+				</div>
+				<input type="text" placeholder="your name" name="name" />
+				<input type="email" placeholder="your email" name="email" />
+				<input
+					type="textarea"
+					placeholder="your message"
+					name="message"
+					wrap="soft"
+				/>
 				<button type="submit">Let's talk!</button>
 			</form>
 		{/if}
-		<div>
-			Making it work in Amherst, MA
-		</div>
+		<div>Making it work in Amherst, MA</div>
 		<div
 			on:mouseover={() => {
 				hidden = false;
@@ -190,21 +226,31 @@
 		</div>
 		<ul>
 			<li>
-				<a href="https://www.linkedin.com/in/ben-norrichs-478994ab/" target="_blank"
-					>LI</a
+				<a
+					href="https://www.linkedin.com/in/ben-norrichs-478994ab/"
+					target="_blank">LI</a
 				>
 			</li>
-			<li><a href="https://github.com/norrichs" target="_blank">GH</a></li>
 			<li>
-				<a href="https://app.codesignal.com/profile/norrichs" target="_blank">CS</a>
+				<a href="https://github.com/norrichs" target="_blank">GH</a>
 			</li>
-			<li><a href="https://www.facebook.com/ben.norrichs" target="_blank">FB</a></li>
+			<li>
+				<a
+					href="https://app.codesignal.com/profile/norrichs"
+					target="_blank">CS</a
+				>
+			</li>
+			<li>
+				<a href="https://www.facebook.com/ben.norrichs" target="_blank"
+					>FB</a
+				>
+			</li>
 		</ul>
 	</footer>
 </main>
 
 <style>
-	:root{
+	:root {
 		/* CSS HEX
 		--pewter-blue: #88a2aaff;
 		--grullo: #ada296ff;
@@ -226,16 +272,12 @@
 		--general-text: var(--grullo);
 
 		/* --form-background: var(--grullo); */
-		--form-background: hsla(31, 12%, 63%, .9);
+		--form-background: hsla(31, 12%, 63%, 0.9);
 		--form-inputs: var(--rich-black-fogra-29);
 		--form-buttons: var(--scarlet);
 		--form-button-text: var(--rich-black-fogra-29);
 
-
 		--footer-height: 75px;
-
-
-
 	}
 
 	li {
@@ -246,32 +288,45 @@
 		scroll-snap-type: y mandatory;
 		background-color: var(--site-background);
 	}
-	h1{
+	h1 {
 		font-size: 3em;
 	}
-	h2{
+	h2 {
 		font-size: 2em;
 	}
-	header{
+	header {
 		padding: 10px 10px 30px 10px;
 	}
+	a {
+		color: var(--highlighted-text);
+		text-decoration: underline;
+		transition: 2000ms;
+	}
+	a:hover {
+		text-shadow: 0 0 20px var(--highlighted-text);
+		transition: 50ms;
+	}
 	#about {
-		height: calc( 100vh - 50px );
+		min-height: calc(100vh - 50px);
 		display: grid;
-		gap: 20px;
-		grid-template-rows: 1fr 1fr;
-		grid-template-columns: 3em 1fr 1fr;
+		/* gap: 20px; */
+		/* grid-template-rows: 1fr 1fr; */
+		grid-template-columns: 3em calc(40vh) 1fr 3em;
 		grid-template-areas:
-			' t p c '
-			' t l l ';
+			" t  p  c1 ."
+			" t  c2 c2 ."
+			" t2 l  l  .";
 	}
 
-	.title{
+	.title {
 		grid-area: t;
 		color: var(--highlighted-text);
 		border-right: 3px solid;
+		display: flex;
+		flex-direction: column;
+		position: relative;
 	}
-	.title > h2{
+	.title > h2 {
 		text-orientation: sideways;
 		writing-mode: vertical-rl;
 		position: -webkit-sticky;
@@ -281,49 +336,74 @@
 		height: 100px;
 		margin: 20px auto;
 	}
-	#about>.photo{
+	#about > .photo {
 		grid-area: p;
 	}
-	#about>.copy{
-		grid-area: c;
+	#about > .copy:first-of-type {
+		margin-left: 100px;
+		max-width: 800px;
+		grid-area: c1;
+	}
+	#about > .copy:last-of-type {
+		grid-area: c2;
 	}
 
 	#about aside {
 		font-size: 1.75em;
-		margin-bottom: 2em;
+		margin: 2em;
+		font-weight: 300;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+	#about .copy ul {
+		margin-left: 2em;
+	}
+	#about .copy li {
+		font-size: 0.75em;
+		list-style: circle;
+		margin-bottom: 20px;
 	}
 	/* #about div{
 		border: 1px solid;
 	} */
-	#about .stack{grid-area: l}
-	#about .stack ul{
+	#about .stack-title {
+		grid-area: t2;
+	}
+	#about div.stack {
+		grid-area: l;
+	}
+	#about .stack ul {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
 		gap: 30px;
 		justify-content: center;
+		border: 1px solid;
+		padding: 50px;
+		margin: 0 150px;
+		border-radius: 300px;
 	}
 
-	#about img{
+	#about img {
 		width: 40vh;
 	}
 
 	/* Projects section */
-	#projects{
+	#projects {
 		display: grid;
 		gap: 20px;
-		/* height: calc( 100vh - 100px ); */
+		height: calc(100vh - var(--footer-height));
 		grid-template-rows: 60vh 1fr;
 		grid-template-columns: 3em 1fr 1fr;
 		grid-template-areas:
-			' pt ps ps '
-			' pt pm pm ';
+			" pt ps ps "
+			" pt pm pm ";
 	}
-	#projects .title{
+	#projects .title {
 		grid-area: pt;
 		color: var(--highlighted-text);
 		border-right: 3px solid;
-
 	}
 	#projects .selected {
 		grid-area: ps;
@@ -391,20 +471,18 @@
 		grid-row: 2 / 3;
 		grid-column: 2 / 3;
 	}
-	#contact > form input[type=textarea] {
+	#contact > form input[type="textarea"] {
 		grid-row: 3 / 4;
 		grid-column: 1 / 3;
-
 	}
 
-	#contact > form div{
+	#contact > form div {
 		grid-row: 1 / 2;
 		grid-column: 1 / 3;
 		display: flex;
 		justify-content: flex-end;
-
 	}
-	#contact .close{
+	#contact .close {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -415,7 +493,7 @@
 		background-color: var(--form-buttons);
 		color: var(--form-button-text);
 	}
-	#contact > form > button{
+	#contact > form > button {
 		grid-row: 4 / 5;
 		grid-column: 1 / 3;
 		width: 100%;
