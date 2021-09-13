@@ -90,7 +90,7 @@
 			<p><u>Let’s build something awesome.</u></p>
 
 			<div>
-				<a href="img/resume_private.pdf"><span>Resume</span></a> 
+				<a href="img/resume_private.pdf"><span>Resumé</span></a> 
 				<a href="https://www.linkedin.com/in/ben-norrichs-478994ab/"><span>LinkedIn</span></a> 
 				<a href="https://github.com/norrichs"><span>GitHub</span></a>
 			</div>
