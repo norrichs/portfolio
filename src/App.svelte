@@ -88,7 +88,12 @@
 				them in any working environment.
 			</p>
 			<p><u>Let’s build something awesome.</u></p>
-			<br />
+
+			<div>
+				<a href="img/resume_private.pdf"><span>Resume</span></a> 
+				<a href="https://www.linkedin.com/in/ben-norrichs-478994ab/"><span>LinkedIn</span></a> 
+				<a href="https://github.com/norrichs"><span>GitHub</span></a>
+			</div>
 		</aside>
 		<aside class="copy">
 			<p>
@@ -288,6 +293,9 @@
 		scroll-snap-type: y mandatory;
 		background-color: var(--site-background);
 	}
+	section {
+		max-width: 1200px;
+	}
 	h1 {
 		font-size: 3em;
 	}
@@ -337,20 +345,30 @@
 		margin: 20px auto;
 	}
 	#about > .photo {
+		margin-left: 50px;
 		grid-area: p;
 	}
 	#about > .copy:first-of-type {
 		margin-left: 100px;
 		max-width: 800px;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 		grid-area: c1;
+	}
+	#about > .copy:first-of-type>div{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
 	}
 	#about > .copy:last-of-type {
 		grid-area: c2;
+		margin: 50px 0 50px 50px;
 	}
 
 	#about aside {
 		font-size: 1.75em;
-		margin: 2em;
 		font-weight: 300;
 		display: flex;
 		flex-direction: column;
