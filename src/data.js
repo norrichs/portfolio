@@ -58,7 +58,7 @@ export const data = [
 			{ planning: "https://www.notion.so/Wanderlust-fb6815a9795b417297e136c4b370c779"},
 			{ backend: "https://github.com/norrichs/wanderlust-backend"},
 			{ frontend: "https://github.com/norrichs/wanderlust-frontend"},
-			{ live: "https://main.d3rz5j4fuubspj.amplifyapp.com/"} 
+			{ live: "https://wanderlust.norrichs.com"} 
 		],
 		overlay: 'dark'
 	},
